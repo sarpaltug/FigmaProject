@@ -187,7 +187,7 @@ struct LanguageSelectionView: View {
                 }
             }
         }
-        .frame(maxWidth: 390)
+        .ignoresSafeArea(.all)
     }
     
     private func startLearning() {
