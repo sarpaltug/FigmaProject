@@ -17,6 +17,7 @@ struct Achievement {
 
 struct ProfileView: View {
     @State private var userName: String = UserDefaults.standard.string(forKey: "userName") ?? "User"
+    @State private var navigateToSettings = false
     
     let achievements = [
         Achievement(title: "Champion", level: "Level 5", icon: "trophy.fill", isCompleted: false),
@@ -42,7 +43,7 @@ struct ProfileView: View {
                         
                         // Settings button
                         Button(action: {
-                            // Handle settings
+                            navigateToSettings = true
                         }) {
                             Image(systemName: "gearshape")
                                 .font(.system(size: 20))
@@ -169,6 +170,9 @@ struct ProfileView: View {
         .onAppear {
             // Refresh user name from UserDefaults when view appears
             userName = UserDefaults.standard.string(forKey: "userName") ?? "User"
+        }
+        .navigationDestination(isPresented: $navigateToSettings) {
+            SettingsView()
         }
     }
 }
