@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @State private var navigateToSignUp = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -50,9 +49,7 @@ struct OnboardingView: View {
                         .padding(.bottom, 40)
                     
                     // Get started button
-                    Button(action: {
-                        navigateToSignUp = true
-                    }) {
+                    NavigationLink(destination: ContentView().navigationBarHidden(true)) {
                         HStack {
                             Spacer()
                             Text("Get started")
@@ -71,10 +68,7 @@ struct OnboardingView: View {
                 }
             }
         }
-        .navigationDestination(isPresented: $navigateToSignUp) {
-            ContentView()
-                .navigationBarHidden(true)
-        }
+
     }
 }
 

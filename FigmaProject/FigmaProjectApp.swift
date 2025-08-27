@@ -13,9 +13,16 @@ struct FigmaProjectApp: App {
 
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                OnboardingView()
-                    .navigationBarHidden(true)
+            if #available(iOS 16.0, *) {
+                NavigationStack {
+                    OnboardingView()
+                        .navigationBarHidden(true)
+                }
+            } else {
+                NavigationView {
+                    OnboardingView()
+                        .navigationBarHidden(true)
+                }
             }
         }
     }
