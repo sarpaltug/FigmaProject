@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @State private var navigateToLanguageSelection = false
+    @State private var navigateToSignUp = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -51,7 +51,7 @@ struct OnboardingView: View {
                     
                     // Get started button
                     Button(action: {
-                        navigateToLanguageSelection = true
+                        navigateToSignUp = true
                     }) {
                         HStack {
                             Spacer()
@@ -71,8 +71,8 @@ struct OnboardingView: View {
                 }
             }
         }
-        .navigationDestination(isPresented: $navigateToLanguageSelection) {
-            LanguageSelectionView()
+        .navigationDestination(isPresented: $navigateToSignUp) {
+            ContentView()
                 .navigationBarHidden(true)
         }
     }
