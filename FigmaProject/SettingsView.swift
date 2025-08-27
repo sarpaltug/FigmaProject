@@ -11,6 +11,7 @@ struct SettingsView: View {
     @State private var userName: String = UserDefaults.standard.string(forKey: "userName") ?? "User"
     @State private var showBugReport = false
     @State private var showAbout = false
+    @State private var showTerms = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -90,7 +91,7 @@ struct SettingsView: View {
                             icon: "doc.text",
                             title: "Terms"
                         ) {
-                            // Terms action
+                            showTerms = true
                         }
                         
                         // Log out
@@ -136,6 +137,9 @@ struct SettingsView: View {
         }
         .navigationDestination(isPresented: $showAbout) {
             AboutView()
+        }
+        .navigationDestination(isPresented: $showTerms) {
+            TermsOfServiceView()
         }
     }
 }

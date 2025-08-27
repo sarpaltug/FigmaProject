@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AboutView: View {
     @Environment(\.presentationMode) var presentationMode
+    @State private var showTermsOfService = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -96,7 +97,7 @@ struct AboutView: View {
                                 
                                 VStack(spacing: 12) {
                                     Button(action: {
-                                        // Handle Terms of Service
+                                        showTermsOfService = true
                                     }) {
                                         Text("Terms of Service")
                                             .font(.system(size: 16, weight: .regular))
@@ -123,6 +124,9 @@ struct AboutView: View {
             }
         }
         .navigationBarHidden(true)
+        .navigationDestination(isPresented: $showTermsOfService) {
+            TermsOfServiceView()
+        }
     }
 }
 
