@@ -151,7 +151,11 @@ struct LanguageSelectionView: View {
                     Spacer()
                     
                     // Start Learning Button
-                    Button(action: startLearning) {
+                    NavigationLink(
+                        destination: selectedLanguage != nil ? 
+                            AnyView(LessonsView(selectedLanguage: selectedLanguage!.name).navigationBarHidden(true)) : 
+                            AnyView(EmptyView())
+                    ) {
                         HStack {
                             Spacer()
                             Text("Start Learning")
@@ -190,11 +194,7 @@ struct LanguageSelectionView: View {
         .ignoresSafeArea(.all)
     }
     
-    private func startLearning() {
-        guard let language = selectedLanguage else { return }
-        print("Starting to learn \(language.name)")
-        // Add navigation logic here
-    }
+
 }
 
 struct LanguageCard: View {
