@@ -49,7 +49,7 @@ struct OnboardingView: View {
                         .padding(.bottom, 40)
                     
                     // Get started button
-                    NavigationLink(destination: ContentView().navigationBarHidden(true)) {
+                    NavigationLink(destination: MainTabView().navigationBarHidden(true)) {
                         HStack {
                             Spacer()
                             Text("Get started")

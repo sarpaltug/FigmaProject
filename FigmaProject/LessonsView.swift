@@ -105,20 +105,7 @@ struct LessonsView: View {
                         .padding(.top, 20)
                     }
                     
-                    Spacer()
-                    
-                    // Bottom Navigation
-                    HStack {
-                        BottomNavButton(icon: "house.fill", title: "Home", isSelected: false)
-                        Spacer()
-                        BottomNavButton(icon: "book.fill", title: "Lessons", isSelected: true)
-                        Spacer()
-                        BottomNavButton(icon: "chart.bar.fill", title: "Leaderboard", isSelected: false)
-                        Spacer()
-                        BottomNavButton(icon: "person.fill", title: "Profile", isSelected: false)
-                    }
-                    .padding(.horizontal, 40)
-                    .padding(.bottom, 30)
+                    Spacer(minLength: 100) // Space for tab bar
                 }
             }
         }
@@ -200,22 +187,6 @@ struct LessonRow: View {
     }
 }
 
-struct BottomNavButton: View {
-    let icon: String
-    let title: String
-    let isSelected: Bool
-    
-    var body: some View {
-        VStack(spacing: 4) {
-            Image(systemName: icon)
-                .font(.system(size: 20))
-                .foregroundColor(isSelected ? Color(hex: "#2699E8") : .white.opacity(0.6))
-            
-            Text(title)
-                .font(.system(size: 12, weight: .medium))
-                .foregroundColor(isSelected ? Color(hex: "#2699E8") : .white.opacity(0.6))
-        }
-    }
-}
+
 
 
