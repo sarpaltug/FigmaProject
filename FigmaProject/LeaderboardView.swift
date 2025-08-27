@@ -38,24 +38,6 @@ struct LeaderboardView: View {
             VStack(spacing: 0) {
                 // Header
                 HStack {
-                    // Stitch - Design with AI button (top left)
-                    Button(action: {
-                        // Handle stitch action
-                    }) {
-                        HStack(spacing: 8) {
-                            Image(systemName: "wand.and.stars")
-                                .font(.system(size: 14))
-                                .foregroundColor(.white)
-                            Text("Stitch - Design with AI")
-                                .font(.system(size: 14, weight: .medium))
-                                .foregroundColor(.white)
-                        }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(Color.black.opacity(0.3))
-                        .cornerRadius(16)
-                    }
-                    
                     Spacer()
                     
                     // Leaderboard title
@@ -64,11 +46,6 @@ struct LeaderboardView: View {
                         .foregroundColor(.white)
                     
                     Spacer()
-                    
-                    // Balance space for centering
-                    Rectangle()
-                        .fill(Color.clear)
-                        .frame(width: 140, height: 32)
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 20)
