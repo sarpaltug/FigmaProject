@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @State private var userName: String = UserDefaults.standard.string(forKey: "userName") ?? "User"
     @State private var showBugReport = false
+    @State private var showAbout = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -81,7 +82,7 @@ struct SettingsView: View {
                             icon: "info.circle",
                             title: "About"
                         ) {
-                            // About action
+                            showAbout = true
                         }
                         
                         // Terms
@@ -132,6 +133,9 @@ struct SettingsView: View {
         }
         .navigationDestination(isPresented: $showBugReport) {
             BugReportView()
+        }
+        .navigationDestination(isPresented: $showAbout) {
+            AboutView()
         }
     }
 }
