@@ -17,16 +17,13 @@ struct LanguageSelectionView: View {
     @State private var searchText: String = ""
     @State private var selectedLanguage: Language?
     
-    let popularLanguages = [
+    let allLanguages = [
         Language(name: "Spanish", flagImage: "spanish_flag"),
         Language(name: "French", flagImage: "french_flag"),
         Language(name: "German", flagImage: "german_flag"),
         Language(name: "Italian", flagImage: "italian_flag"),
         Language(name: "Japanese", flagImage: "japanese_flag"),
-        Language(name: "Korean", flagImage: "korean_flag")
-    ]
-    
-    let allLanguages = [
+        Language(name: "Korean", flagImage: "korean_flag"),
         Language(name: "Arabic", flagImage: "arabic_flag"),
         Language(name: "Chinese", flagImage: "chinese_flag"),
         Language(name: "Dutch", flagImage: "dutch_flag"),
@@ -38,6 +35,30 @@ struct LanguageSelectionView: View {
         Language(name: "Swedish", flagImage: "swedish_flag"),
         Language(name: "Turkish", flagImage: "turkish_flag")
     ]
+    
+    var popularLanguages: [Language] {
+        Array(allLanguages.prefix(6))
+    }
+    
+    var filteredLanguages: [Language] {
+        if searchText.isEmpty {
+            return allLanguages
+        } else {
+            return allLanguages.filter { language in
+                language.name.lowercased().hasPrefix(searchText.lowercased())
+            }
+        }
+    }
+    
+    var filteredPopularLanguages: [Language] {
+        if searchText.isEmpty {
+            return popularLanguages
+        } else {
+            return popularLanguages.filter { language in
+                language.name.lowercased().hasPrefix(searchText.lowercased())
+            }
+        }
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -96,44 +117,54 @@ struct LanguageSelectionView: View {
                     // Scrollable content
                     ScrollView {
                         VStack(alignment: .leading, spacing: 20) {
-                            // Popular section
-                            VStack(alignment: .leading, spacing: 12) {
-                                HStack {
-                                    Text("Popular")
-                                        .font(.system(size: 22, weight: .bold, design: .default))
-                                        .foregroundColor(.white)
-                                        .padding(.horizontal, 16)
-                                    Spacer()
-                                }
-                                
-                                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
-                                    ForEach(popularLanguages, id: \.id) { language in
-                                        LanguageCard(language: language, isSelected: selectedLanguage?.name == language.name) {
-                                            selectedLanguage = language
+                            // Popular section (only show when search is empty)
+                            if searchText.isEmpty {
+                                VStack(alignment: .leading, spacing: 12) {
+                                    HStack {
+                                        Text("Popular")
+                                            .font(.system(size: 22, weight: .bold, design: .default))
+                                            .foregroundColor(.white)
+                                            .padding(.horizontal, 16)
+                                        Spacer()
+                                    }
+                                    
+                                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
+                                        ForEach(filteredPopularLanguages, id: \.id) { language in
+                                            LanguageCard(language: language, isSelected: selectedLanguage?.name == language.name) {
+                                                selectedLanguage = language
+                                            }
                                         }
                                     }
+                                    .padding(.horizontal, 16)
                                 }
-                                .padding(.horizontal, 16)
                             }
                             
                             // All languages section
                             VStack(alignment: .leading, spacing: 12) {
                                 HStack {
-                                    Text("All languages")
+                                    Text(searchText.isEmpty ? "All languages" : "Search results")
                                         .font(.system(size: 22, weight: .bold, design: .default))
                                         .foregroundColor(.white)
                                         .padding(.horizontal, 16)
                                     Spacer()
                                 }
                                 
-                                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
-                                    ForEach(allLanguages, id: \.id) { language in
-                                        LanguageCard(language: language, isSelected: selectedLanguage?.name == language.name) {
-                                            selectedLanguage = language
+                                if filteredLanguages.isEmpty && !searchText.isEmpty {
+                                    Text("No languages found")
+                                        .font(.system(size: 16, weight: .regular, design: .default))
+                                        .foregroundColor(Color(hex: "#9EADB8"))
+                                        .padding(.horizontal, 16)
+                                        .padding(.top, 20)
+                                } else {
+                                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
+                                        ForEach(filteredLanguages, id: \.id) { language in
+                                            LanguageCard(language: language, isSelected: selectedLanguage?.name == language.name) {
+                                                selectedLanguage = language
+                                            }
                                         }
                                     }
+                                    .padding(.horizontal, 16)
                                 }
-                                .padding(.horizontal, 16)
                             }
                             
                             // Bottom padding for tab bar
