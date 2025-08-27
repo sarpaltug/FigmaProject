@@ -109,9 +109,9 @@ struct LessonsView: View {
                     
                     // Bottom Navigation
                     HStack {
-                        BottomNavButton(icon: "house.fill", title: "Home", isSelected: true)
+                        BottomNavButton(icon: "house.fill", title: "Home", isSelected: false)
                         Spacer()
-                        BottomNavButton(icon: "book.fill", title: "Lessons", isSelected: false)
+                        BottomNavButton(icon: "book.fill", title: "Lessons", isSelected: true)
                         Spacer()
                         BottomNavButton(icon: "chart.bar.fill", title: "Leaderboard", isSelected: false)
                         Spacer()
