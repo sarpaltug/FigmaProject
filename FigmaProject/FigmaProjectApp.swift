@@ -13,7 +13,10 @@ struct FigmaProjectApp: App {
 
     var body: some Scene {
         WindowGroup {
-            LanguageSelectionView()
+            NavigationView {
+                OnboardingView()
+                    .navigationBarHidden(true)
+            }
         }
     }
 }
