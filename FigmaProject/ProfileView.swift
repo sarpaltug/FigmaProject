@@ -16,6 +16,8 @@ struct Achievement {
 }
 
 struct ProfileView: View {
+    @State private var userName: String = UserDefaults.standard.string(forKey: "userName") ?? "User"
+    
     let achievements = [
         Achievement(title: "Champion", level: "Level 5", icon: "trophy.fill", isCompleted: false),
         Achievement(title: "Photogenic", level: "Level 2", icon: "camera.fill", isCompleted: false),
@@ -69,11 +71,11 @@ struct ProfileView: View {
                         
                         // Name and username
                         VStack(spacing: 4) {
-                            Text("Sophia Carter")
+                            Text(userName)
                                 .font(.system(size: 24, weight: .bold))
                                 .foregroundColor(.white)
                             
-                            Text("sophia_carter")
+                            Text("@\(userName.lowercased().replacingOccurrences(of: " ", with: "_"))")
                                 .font(.system(size: 16, weight: .regular))
                                 .foregroundColor(Color(hex: "#9EADB8"))
                             
@@ -147,7 +149,7 @@ struct ProfileView: View {
                     
                     // User info at bottom
                     VStack(spacing: 8) {
-                        Text("Sophia Carter")
+                        Text(userName)
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.white)
                         
@@ -163,6 +165,10 @@ struct ProfileView: View {
                     .padding(.bottom, 100) // Space for tab bar
                 }
             }
+        }
+        .onAppear {
+            // Refresh user name from UserDefaults when view appears
+            userName = UserDefaults.standard.string(forKey: "userName") ?? "User"
         }
     }
 }

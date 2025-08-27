@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var name: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var navigateToLanguageSelection = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -92,7 +93,11 @@ struct ContentView: View {
                             .padding(.horizontal, 16)
                         
                         // Create account button
-                        NavigationLink(destination: MainTabView().navigationBarHidden(true)) {
+                        Button(action: {
+                            // Save the user name when creating account
+                            UserDefaults.standard.set(name, forKey: "userName")
+                            navigateToLanguageSelection = true
+                        }) {
                             HStack {
                                 Spacer()
                                 Text("Create account")
@@ -114,6 +119,9 @@ struct ContentView: View {
             }
         }
         .frame(maxWidth: 390) // Max width as per Figma design, but responsive
+        .navigationDestination(isPresented: $navigateToLanguageSelection) {
+            LanguageSelectionView()
+        }
     }
     
 
