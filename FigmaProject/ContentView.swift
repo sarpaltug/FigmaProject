@@ -92,7 +92,7 @@ struct ContentView: View {
                             .padding(.horizontal, 16)
                         
                         // Create account button
-                        NavigationLink(destination: LanguageSelectionView().navigationBarHidden(true)) {
+                        NavigationLink(destination: MainTabView().navigationBarHidden(true)) {
                             HStack {
                                 Spacer()
                                 Text("Create account")
