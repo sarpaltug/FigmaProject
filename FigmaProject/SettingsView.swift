@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @State private var userName: String = UserDefaults.standard.string(forKey: "userName") ?? "User"
+    @State private var showBugReport = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -72,7 +73,7 @@ struct SettingsView: View {
                             icon: "ant",
                             title: "Report a bug"
                         ) {
-                            // Report bug action
+                            showBugReport = true
                         }
                         
                         // About
@@ -128,6 +129,9 @@ struct SettingsView: View {
         .onAppear {
             // Refresh user name from UserDefaults when view appears
             userName = UserDefaults.standard.string(forKey: "userName") ?? "User"
+        }
+        .navigationDestination(isPresented: $showBugReport) {
+            BugReportView()
         }
     }
 }
