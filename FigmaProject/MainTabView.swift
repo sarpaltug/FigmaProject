@@ -21,7 +21,7 @@ struct MainTabView: View {
                 .tag(0)
             
             // Lessons Tab
-            LessonsView(selectedLanguage: "Spanish") // Default language
+            LessonsView()
                 .tabItem {
                     Image(systemName: selectedTab == 1 ? "book.fill" : "book")
                     Text("Lessons")

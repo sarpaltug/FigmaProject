@@ -15,7 +15,7 @@ struct Lesson {
 }
 
 struct LessonsView: View {
-    let selectedLanguage: String
+    @State private var selectedLanguage: String = UserDefaults.standard.string(forKey: "selectedLanguage") ?? "Spanish"
     @State private var lessons: [Lesson] = []
     @State private var earnedXP: Int = 20
     @State private var lessonsUntilNext: Int = 0
@@ -111,6 +111,8 @@ struct LessonsView: View {
         }
         .navigationBarHidden(true)
         .onAppear {
+            // Refresh selected language from UserDefaults
+            selectedLanguage = UserDefaults.standard.string(forKey: "selectedLanguage") ?? "Spanish"
             loadLessons()
         }
     }

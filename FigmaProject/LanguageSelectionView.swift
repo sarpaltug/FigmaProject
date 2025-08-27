@@ -16,6 +16,7 @@ struct Language {
 struct LanguageSelectionView: View {
     @State private var searchText: String = ""
     @State private var selectedLanguage: Language?
+    @State private var navigateToMainTab = false
     
     let allLanguages = [
         Language(name: "Spanish", flagImage: "spanish_flag"),
@@ -182,11 +183,12 @@ struct LanguageSelectionView: View {
                     Spacer()
                     
                     // Start Learning Button
-                    NavigationLink(
-                        destination: selectedLanguage != nil ? 
-                            AnyView(LessonsView(selectedLanguage: selectedLanguage!.name).navigationBarHidden(true)) : 
-                            AnyView(EmptyView())
-                    ) {
+                    Button(action: {
+                        if let selectedLanguage = selectedLanguage {
+                            UserDefaults.standard.set(selectedLanguage.name, forKey: "selectedLanguage")
+                            navigateToMainTab = true
+                        }
+                    }) {
                         HStack {
                             Spacer()
                             Text("Start Learning")
@@ -223,6 +225,9 @@ struct LanguageSelectionView: View {
             }
         }
         .ignoresSafeArea(.all)
+        .navigationDestination(isPresented: $navigateToMainTab) {
+            MainTabView()
+        }
     }
     
 
