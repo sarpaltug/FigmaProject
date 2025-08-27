@@ -232,7 +232,7 @@ struct BugReportView: View {
 }
 
 struct FeedbackSuccessView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         GeometryReader { geometry in
@@ -267,9 +267,11 @@ struct FeedbackSuccessView: View {
                     
                     // Go Back button
                     Button(action: {
-                        // Navigate back to home (MainTabView)
-                        // We'll dismiss all the way back to the tab view
-                        navigateToHome()
+                        // Send notification to MainTabView to switch to Home tab
+                        NotificationCenter.default.post(name: NSNotification.Name("SwitchToHomeTab"), object: nil)
+                        
+                        // Dismiss current view
+                        dismiss()
                     }) {
                         HStack {
                             Spacer()
@@ -289,14 +291,7 @@ struct FeedbackSuccessView: View {
         }
         .navigationBarHidden(true)
     }
-    
-    private func navigateToHome() {
-        // Dismiss all presented views to go back to MainTabView
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            window.rootViewController?.dismiss(animated: true, completion: nil)
-        }
-    }
+
 }
 
 #Preview {

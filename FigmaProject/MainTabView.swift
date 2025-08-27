@@ -66,6 +66,9 @@ struct MainTabView: View {
             UITabBar.appearance().standardAppearance = appearance
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("SwitchToHomeTab"))) { _ in
+            selectedTab = 0 // Switch to Home tab (LanguageSelectionView)
+        }
     }
 }
 
