@@ -92,7 +92,7 @@ struct ContentView: View {
                             .padding(.horizontal, 16)
                         
                         // Create account button
-                        Button(action: createAccount) {
+                        NavigationLink(destination: LanguageSelectionView().navigationBarHidden(true)) {
                             HStack {
                                 Spacer()
                                 Text("Create account")
@@ -116,11 +116,7 @@ struct ContentView: View {
         .frame(maxWidth: 390) // Max width as per Figma design, but responsive
     }
     
-    private func createAccount() {
-        // Handle account creation
-        print("Creating account for: \(name), \(email)")
-        // Add your account creation logic here
-    }
+
     
 
 }
