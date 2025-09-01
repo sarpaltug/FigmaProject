@@ -9,10 +9,14 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    @EnvironmentObject var firebaseManager: FirebaseManager
     @State private var name: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var navigateToLanguageSelection = false
+    @State private var isLoading = false
+    @State private var errorMessage = ""
+    @State private var showError = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -94,15 +98,19 @@ struct ContentView: View {
                         
                         // Create account button
                         Button(action: {
-                            // Save the user name when creating account
-                            UserDefaults.standard.set(name, forKey: "userName")
-                            navigateToLanguageSelection = true
+                            createAccount()
                         }) {
                             HStack {
                                 Spacer()
-                                Text("Create account")
-                                    .font(.system(size: 16, weight: .bold, design: .default))
-                                    .foregroundColor(.white)
+                                if isLoading {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                        .scaleEffect(0.8)
+                                } else {
+                                    Text("Create account")
+                                        .font(.system(size: 16, weight: .bold, design: .default))
+                                        .foregroundColor(.white)
+                                }
                                 Spacer()
                             }
                             .frame(height: 48)
@@ -110,7 +118,16 @@ struct ContentView: View {
                             .cornerRadius(24)
                             .padding(.horizontal, 20)
                         }
+                        .disabled(isLoading || name.isEmpty || email.isEmpty || password.isEmpty)
                         .padding(.horizontal, 16)
+                        
+                        // Sign in link
+                        NavigationLink(destination: SignInView().environmentObject(firebaseManager)) {
+                            Text("Already have an account? Sign In")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(Color(hex: "#2699E8"))
+                        }
+                        .padding(.top, 8)
                     }
                     .padding(.vertical, 12)
                     
@@ -122,6 +139,47 @@ struct ContentView: View {
         .navigationDestination(isPresented: $navigateToLanguageSelection) {
             LanguageSelectionView()
         }
+        .alert("Error", isPresented: $showError) {
+            Button("OK") { }
+        } message: {
+            Text(errorMessage)
+        }
+    }
+    
+    // MARK: - Firebase Authentication Methods
+    
+    private func createAccount() {
+        guard !name.isEmpty, !email.isEmpty, !password.isEmpty else {
+            showErrorMessage("Please fill in all fields")
+            return
+        }
+        
+        guard password.count >= 6 else {
+            showErrorMessage("Password must be at least 6 characters")
+            return
+        }
+        
+        isLoading = true
+        
+        Task {
+            do {
+                try await firebaseManager.signUp(email: email, password: password, name: name)
+                // Firebase Authentication başarılı olduğunda otomatik olarak MainTabView'a yönlendirilecek
+                await MainActor.run {
+                    isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    isLoading = false
+                    showErrorMessage(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    private func showErrorMessage(_ message: String) {
+        errorMessage = message
+        showError = true
     }
     
 

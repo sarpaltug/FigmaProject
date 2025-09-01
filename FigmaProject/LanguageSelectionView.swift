@@ -14,6 +14,7 @@ struct Language {
 }
 
 struct LanguageSelectionView: View {
+    @EnvironmentObject var firebaseManager: FirebaseManager
     @State private var searchText: String = ""
     @State private var selectedLanguage: Language?
     @State private var navigateToMainTab = false
@@ -183,12 +184,9 @@ struct LanguageSelectionView: View {
                     Spacer()
                     
                     // Start Learning Button
-                    Button(action: {
-                        if let selectedLanguage = selectedLanguage {
-                            UserDefaults.standard.set(selectedLanguage.name, forKey: "selectedLanguage")
-                            navigateToMainTab = true
-                        }
-                    }) {
+                                            Button(action: {
+                            saveLanguageSelection()
+                        }) {
                         HStack {
                             Spacer()
                             Text("Start Learning")
@@ -230,7 +228,30 @@ struct LanguageSelectionView: View {
         }
     }
     
-
+    // MARK: - Firebase Methods
+    
+    private func saveLanguageSelection() {
+        guard let selectedLanguage = selectedLanguage else { return }
+        
+        // Local storage (backup)
+        UserDefaults.standard.set(selectedLanguage.name, forKey: "selectedLanguage")
+        
+        // Firebase'e kaydet
+        Task {
+            do {
+                try await firebaseManager.updateUserLanguage(selectedLanguage.name)
+                await MainActor.run {
+                    navigateToMainTab = true
+                }
+            } catch {
+                print("Error saving language: \(error)")
+                // Hata olsa bile devam et
+                await MainActor.run {
+                    navigateToMainTab = true
+                }
+            }
+        }
+    }
 }
 
 struct LanguageCard: View {

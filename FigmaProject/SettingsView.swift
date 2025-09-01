@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var userName: String = UserDefaults.standard.string(forKey: "userName") ?? "User"
+    @EnvironmentObject var firebaseManager: FirebaseManager
+    @State private var userName: String = "User"
     @State private var showBugReport = false
     @State private var showAbout = false
     @State private var showTerms = false
+    @State private var navigateToSignUp = false
+    @State private var isLoggingOut = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -36,7 +39,7 @@ struct SettingsView: View {
                         Spacer()
                         
                         // Title
-                        Text("Stitch - Design with AI")
+                        Text("Settings")
                             .font(.system(size: 20, weight: .semibold))
                             .foregroundColor(.white)
                         
@@ -97,9 +100,9 @@ struct SettingsView: View {
                         // Log out
                         SettingsMenuItem(
                             icon: "arrow.right.square",
-                            title: "Log out"
+                            title: isLoggingOut ? "Logging out..." : "Log out"
                         ) {
-                            // Log out action
+                            logOut()
                         }
                     }
                     .padding(.horizontal, 20)
@@ -129,8 +132,8 @@ struct SettingsView: View {
         }
         .navigationBarHidden(true)
         .onAppear {
-            // Refresh user name from UserDefaults when view appears
-            userName = UserDefaults.standard.string(forKey: "userName") ?? "User"
+            // Firebase'den kullanıcı adını al
+            userName = firebaseManager.currentUser?.displayName ?? "User"
         }
         .navigationDestination(isPresented: $showBugReport) {
             BugReportView()
@@ -141,6 +144,24 @@ struct SettingsView: View {
         .navigationDestination(isPresented: $showTerms) {
             TermsOfServiceView()
         }
+        .navigationDestination(isPresented: $navigateToSignUp) {
+            ContentView().navigationBarHidden(true)
+        }
+    }
+    
+    // MARK: - Firebase Methods
+    
+    private func logOut() {
+        isLoggingOut = true
+        
+        do {
+            try firebaseManager.signOut()
+            // Firebase sign out başarılı olduğunda otomatik olarak OnboardingView'a yönlendirilecek
+        } catch {
+            print("Error signing out: \(error)")
+        }
+        
+        isLoggingOut = false
     }
 }
 

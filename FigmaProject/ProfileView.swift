@@ -16,7 +16,10 @@ struct Achievement {
 }
 
 struct ProfileView: View {
-    @State private var userName: String = UserDefaults.standard.string(forKey: "userName") ?? "User"
+    @EnvironmentObject var firebaseManager: FirebaseManager
+    @State private var userName: String = "User"
+    @State private var userEmail: String = ""
+    @State private var totalXP: Int = 0
     @State private var navigateToSettings = false
     
     let achievements = [
@@ -168,11 +171,33 @@ struct ProfileView: View {
             }
         }
         .onAppear {
-            // Refresh user name from UserDefaults when view appears
-            userName = UserDefaults.standard.string(forKey: "userName") ?? "User"
+            loadUserData()
         }
         .navigationDestination(isPresented: $navigateToSettings) {
             SettingsView()
+        }
+    }
+    
+    // MARK: - Firebase Methods
+    
+    private func loadUserData() {
+        // Firebase'den kullanıcı bilgilerini al
+        if let user = firebaseManager.currentUser {
+            userName = user.displayName ?? "User"
+            userEmail = user.email ?? ""
+            
+            // Firestore'dan ek kullanıcı bilgilerini al
+            Task {
+                do {
+                    if let userData = try await firebaseManager.getUserData() {
+                        await MainActor.run {
+                            totalXP = userData["totalXP"] as? Int ?? 0
+                        }
+                    }
+                } catch {
+                    print("Error loading user data: \(error)")
+                }
+            }
         }
     }
 }
