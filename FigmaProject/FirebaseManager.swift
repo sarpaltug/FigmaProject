@@ -305,21 +305,3 @@ class FirebaseManager: ObservableObject {
     }
 }
 
-// MARK: - User Model
-struct UserProfile {
-    let uid: String
-    let email: String
-    let displayName: String
-    let selectedLanguage: String
-    let totalXP: Int
-    let createdAt: Date
-    
-    init(data: [String: Any]) {
-        self.uid = data["uid"] as? String ?? ""
-        self.email = data["email"] as? String ?? ""
-        self.displayName = data["displayName"] as? String ?? ""
-        self.selectedLanguage = data["selectedLanguage"] as? String ?? ""
-        self.totalXP = data["totalXP"] as? Int ?? 0
-        self.createdAt = (data["createdAt"] as? Timestamp)?.dateValue() ?? Date()
-    }
-}

@@ -94,7 +94,8 @@ struct SignInView: View {
                         }
                         .padding(.top, 8)
                         
-                        // Apple Sign In button
+                        // Apple Sign In button - Disabled (Requires Paid Apple Developer Program)
+                        /*
                         SignInWithAppleButton(
                             type: .signIn,
                             style: .black
@@ -118,6 +119,7 @@ struct SignInView: View {
                                 .foregroundColor(.gray.opacity(0.3))
                         }
                         .padding(.vertical, 16)
+                        */
                         
                         // Sign in button
                         Button(action: {

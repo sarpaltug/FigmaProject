@@ -30,6 +30,7 @@
 		AF2B20692E4E6BB2004C142D /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = AF2B20682E4E6BB2004C142D /* FirebaseRemoteConfig */; };
 		AF2B206B2E4E6BB2004C142D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = AF2B206A2E4E6BB2004C142D /* FirebaseStorage */; };
 		AF2B206D2E4E6BB2004C142D /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = AF2B206C2E4E6BB2004C142D /* FirebaseStorageCombine-Community */; };
+		AF6564FC2E9423A9001A3FDE /* SignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6564FB2E9423A1001A3FDE /* SignInWithApple.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,24 +54,12 @@
 		AF2B200B2E427804004C142D /* FigmaProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FigmaProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2B201E2E427806004C142D /* FigmaProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FigmaProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2B20282E427806004C142D /* FigmaProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FigmaProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF6564FB2E9423A1001A3FDE /* SignInWithApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithApple.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		AF2B20F12E658D59004C142D /* Exceptions for "FigmaProject" folder in "FigmaProject" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = AF2B200A2E427804004C142D /* FigmaProject */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		AF2B200D2E427804004C142D /* FigmaProject */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				AF2B20F12E658D59004C142D /* Exceptions for "FigmaProject" folder in "FigmaProject" target */,
-			);
 			path = FigmaProject;
 			sourceTree = "<group>";
 		};
@@ -137,7 +126,7 @@
 		AF2B20022E427804004C142D = {
 			isa = PBXGroup;
 			children = (
-				AF2B200D2E427804004C142D /* FigmaProject */,
+				AF6564F82E9422F2001A3FDE /* SignInWithApple */,
 				AF2B20212E427806004C142D /* FigmaProjectTests */,
 				AF2B202B2E427806004C142D /* FigmaProjectUITests */,
 				AF2B200C2E427804004C142D /* Products */,
@@ -152,6 +141,31 @@
 				AF2B20282E427806004C142D /* FigmaProjectUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AF6564F82E9422F2001A3FDE /* SignInWithApple */ = {
+			isa = PBXGroup;
+			children = (
+				AF6564F92E942364001A3FDE /* New Group */,
+				AF2B200D2E427804004C142D /* FigmaProject */,
+			);
+			path = SignInWithApple;
+			sourceTree = "<group>";
+		};
+		AF6564F92E942364001A3FDE /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				AF6564FA2E942387001A3FDE /* SignInProviders */,
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		AF6564FA2E942387001A3FDE /* SignInProviders */ = {
+			isa = PBXGroup;
+			children = (
+				AF6564FB2E9423A1001A3FDE /* SignInWithApple.swift */,
+			);
+			path = SignInProviders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,6 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF6564FC2E9423A9001A3FDE /* SignInWithApple.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +494,7 @@
 				CODE_SIGN_ENTITLEMENTS = FigmaProject/FigmaProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VLC565U38T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FigmaProject/Info.plist;
@@ -518,6 +534,7 @@
 				CODE_SIGN_ENTITLEMENTS = FigmaProject/FigmaProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VLC565U38T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FigmaProject/Info.plist;

@@ -1,0 +1,29 @@
+Minimal Firebase Configuration:
+
+Required packages only:
+- FirebaseCore (required for all Firebase services)
+- FirebaseAuth (for authentication)
+- FirebaseFirestore (for database)
+
+Remove these unused packages:
+- FirebaseAI
+- FirebaseAnalytics
+- FirebaseAnalyticsCore
+- FirebaseAnalyticsIdentitySupport
+- FirebaseAppCheck
+- FirebaseAppDistribution-Beta
+- FirebaseAuthCombine-Community
+- FirebaseCrashlytics
+- FirebaseDatabase
+- FirebaseFirestoreCombine-Community
+- FirebaseFunctions
+- FirebaseFunctionsCombine-Community
+- FirebaseInAppMessaging-Beta
+- FirebaseInstallations
+- FirebaseMLModelDownloader
+- FirebaseMessaging
+- FirebasePerformance
+- FirebaseRemoteConfig
+- FirebaseStorage
+- FirebaseStorageCombine-Community
+

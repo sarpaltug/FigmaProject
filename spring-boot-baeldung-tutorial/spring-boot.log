@@ -1,0 +1,146 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------< com.baeldung:spring-boot-baeldung-tutorial >-------------
+[INFO] Building Spring Boot Baeldung Tutorial 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.0:run (default-cli) > test-compile @ spring-boot-baeldung-tutorial >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ spring-boot-baeldung-tutorial ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ spring-boot-baeldung-tutorial ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ spring-boot-baeldung-tutorial ---
+[INFO] skip non existing resourceDirectory /Users/sarpugrasiz/Desktop/FigmaProject/spring-boot-baeldung-tutorial/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ spring-boot-baeldung-tutorial ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.0:run (default-cli) < test-compile @ spring-boot-baeldung-tutorial <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.0:run (default-cli) @ spring-boot-baeldung-tutorial ---
+[INFO] Attaching agents: []
+ ____             _               ____              _   
+/ ___| _ __  _ __(_)_ __   __ _  | __ )  ___   ___ | |_ 
+\___ \| '_ \| '__| | '_ \ / _` | |  _ \ / _ \ / _ \| __|
+ ___) | |_) | |  | | | | | (_| | | |_) | (_) | (_) | |_ 
+|____/| .__/|_|  |_|_| |_|\__, | |____/ \___/ \___/ \__|
+      |_|                 |___/                         
+
+[94m:: Spring Boot Baeldung Tutorial ::[39m
+[92mVersiyon: [39m
+[93mBaeldung rehberini takip ederek oluşturulmuştur[39m
+
+[2m12:46:31.160[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Starting Application using Java 22.0.2 with PID 99514 (/Users/sarpugrasiz/Desktop/FigmaProject/spring-boot-baeldung-tutorial/target/classes started by sarpugrasiz in /Users/sarpugrasiz/Desktop/FigmaProject/spring-boot-baeldung-tutorial)
+-[2m12:46:31.161[0;39m [32m-DEBUG[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Running with Spring Boot v3.2.0, Spring v6.1.1
+-[2m12:46:31.161[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m No active profile set, falling back to 1 default profile: "default"
+-[2m12:46:31.177[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+-[2m12:46:31.177[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+-[2m12:46:31.457[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port 8080 (http)
+-[2m12:46:31.461[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Starting service [Tomcat]
+-[2m12:46:31.461[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.apache.catalina.core.StandardEngine   [0;39m [2m:[0;39m Starting Servlet engine: [Apache Tomcat/10.1.16]
+-[2m12:46:31.474[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring embedded WebApplicationContext
+-[2m12:46:31.475[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 297 ms
+-[2m12:46:31.589[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+-[2m12:46:31.599[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port 8080 (http) with context path ''
+-[2m12:46:31.603[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Started Application in 0.591 seconds (process running for 0.729)
+-=================================
+🚀 Spring Boot Uygulaması Başlatıldı!
+📍 http://localhost:8080 adresinden erişebilirsiniz
+=================================
+[2m12:46:43.541[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[nio-8080-exec-1][0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
+-[2m12:46:43.541[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[nio-8080-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
+-[2m12:46:43.542[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[nio-8080-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 1 ms
+-[2m13:00:17.067[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[   File Watcher][0;39m [36mrtingClassPathChangeChangedEventListener[0;39m [2m:[0;39m Restarting due to 4 class path changes (0 additions, 0 deletions, 4 modifications)
+- ____             _               ____              _   
+/ ___| _ __  _ __(_)_ __   __ _  | __ )  ___   ___ | |_ 
+\___ \| '_ \| '__| | '_ \ / _` | |  _ \ / _ \ / _ \| __|
+ ___) | |_) | |  | | | | | (_| | | |_) | (_) | (_) | |_ 
+|____/| .__/|_|  |_|_| |_|\__, | |____/ \___/ \___/ \__|
+      |_|                 |___/                         
+
+[94m:: Spring Boot Baeldung Tutorial ::[39m
+[92mVersiyon: [39m
+[93mBaeldung rehberini takip ederek oluşturulmuştur[39m
+
+[2m13:00:17.297[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Starting Application using Java 22.0.2 with PID 99514 (/Users/sarpugrasiz/Desktop/FigmaProject/spring-boot-baeldung-tutorial/target/classes started by sarpugrasiz in /Users/sarpugrasiz/Desktop/FigmaProject/spring-boot-baeldung-tutorial)
+-[2m13:00:17.297[0;39m [32m-DEBUG[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Running with Spring Boot v3.2.0, Spring v6.1.1
+-[2m13:00:17.297[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m No active profile set, falling back to 1 default profile: "default"
+-[2m13:00:17.425[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port 8080 (http)
+-[2m13:00:17.426[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Starting service [Tomcat]
+-[2m13:00:17.426[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.apache.catalina.core.StandardEngine   [0;39m [2m:[0;39m Starting Servlet engine: [Apache Tomcat/10.1.16]
+-[2m13:00:17.435[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring embedded WebApplicationContext
+-[2m13:00:17.435[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 136 ms
+-[2m13:00:17.582[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+-[2m13:00:17.586[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port 8080 (http) with context path ''
+-[2m13:00:17.589[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Started Application in 0.316 seconds (process running for 82048.985)
+-[2m13:00:17.591[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+-=================================
+🚀 Spring Boot Uygulaması Başlatıldı!
+📍 http://localhost:8080 adresinden erişebilirsiniz
+=================================
+[2m14:10:18.470[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[   File Watcher][0;39m [36mrtingClassPathChangeChangedEventListener[0;39m [2m:[0;39m Restarting due to 4 class path changes (0 additions, 4 deletions, 0 modifications)
+- ____             _               ____              _   
+/ ___| _ __  _ __(_)_ __   __ _  | __ )  ___   ___ | |_ 
+\___ \| '_ \| '__| | '_ \ / _` | |  _ \ / _ \ / _ \| __|
+ ___) | |_) | |  | | | | | (_| | | |_) | (_) | (_) | |_ 
+|____/| .__/|_|  |_|_| |_|\__, | |____/ \___/ \___/ \__|
+      |_|                 |___/                         
+
+[94m:: Spring Boot Baeldung Tutorial ::[39m
+[92mVersiyon: [39m
+[93mBaeldung rehberini takip ederek oluşturulmuştur[39m
+
+[2m14:10:18.656[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Starting Application using Java 22.0.2 with PID 99514 (/Users/sarpugrasiz/Desktop/FigmaProject/spring-boot-baeldung-tutorial/target/classes started by sarpugrasiz in /Users/sarpugrasiz/Desktop/FigmaProject/spring-boot-baeldung-tutorial)
+-[2m14:10:18.656[0;39m [32m-DEBUG[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Running with Spring Boot v3.2.0, Spring v6.1.1
+-[2m14:10:18.656[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m No active profile set, falling back to 1 default profile: "default"
+-[2m14:10:18.723[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port 8080 (http)
+-[2m14:10:18.724[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Starting service [Tomcat]
+-[2m14:10:18.724[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.apache.catalina.core.StandardEngine   [0;39m [2m:[0;39m Starting Servlet engine: [Apache Tomcat/10.1.16]
+-[2m14:10:18.727[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring embedded WebApplicationContext
+-[2m14:10:18.727[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 70 ms
+-[2m14:10:18.772[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+-[2m14:10:18.775[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port 8080 (http) with context path ''
+-[2m14:10:18.776[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Started Application in 0.148 seconds (process running for 104105.579)
+-[2m14:10:18.776[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+-=================================
+🚀 Spring Boot Uygulaması Başlatıldı!
+📍 http://localhost:8080 adresinden erişebilirsiniz
+=================================
+[2m14:10:20.212[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[   File Watcher][0;39m [36mrtingClassPathChangeChangedEventListener[0;39m [2m:[0;39m Restarting due to 4 class path changes (4 additions, 0 deletions, 0 modifications)
+- ____             _               ____              _   
+/ ___| _ __  _ __(_)_ __   __ _  | __ )  ___   ___ | |_ 
+\___ \| '_ \| '__| | '_ \ / _` | |  _ \ / _ \ / _ \| __|
+ ___) | |_) | |  | | | | | (_| | | |_) | (_) | (_) | |_ 
+|____/| .__/|_|  |_|_| |_|\__, | |____/ \___/ \___/ \__|
+      |_|                 |___/                         
+
+[94m:: Spring Boot Baeldung Tutorial ::[39m
+[92mVersiyon: [39m
+[93mBaeldung rehberini takip ederek oluşturulmuştur[39m
+
+[2m14:10:20.269[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Starting Application using Java 22.0.2 with PID 99514 (/Users/sarpugrasiz/Desktop/FigmaProject/spring-boot-baeldung-tutorial/target/classes started by sarpugrasiz in /Users/sarpugrasiz/Desktop/FigmaProject/spring-boot-baeldung-tutorial)
+-[2m14:10:20.269[0;39m [32m-DEBUG[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Running with Spring Boot v3.2.0, Spring v6.1.1
+-[2m14:10:20.269[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m No active profile set, falling back to 1 default profile: "default"
+-[2m14:10:20.329[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port 8080 (http)
+-[2m14:10:20.330[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Starting service [Tomcat]
+-[2m14:10:20.330[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.apache.catalina.core.StandardEngine   [0;39m [2m:[0;39m Starting Servlet engine: [Apache Tomcat/10.1.16]
+-[2m14:10:20.334[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring embedded WebApplicationContext
+-[2m14:10:20.334[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 64 ms
+-[2m14:10:20.370[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+-[2m14:10:20.373[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port 8080 (http) with context path ''
+-[2m14:10:20.377[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mcom.baeldung.spring.Application         [0;39m [2m:[0;39m Started Application in 0.119 seconds (process running for 104107.18)
+-[2m14:10:20.378[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+-=================================
+🚀 Spring Boot Uygulaması Başlatıldı!
+📍 http://localhost:8080 adresinden erişebilirsiniz
+=================================
+[2m11:32:07.249[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[nio-8080-exec-1][0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
+-[2m11:32:07.255[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[nio-8080-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
+-[2m11:32:07.266[0;39m [32m- INFO[0;39m [35m99514[0;39m [2m---[0;39m [2m[nio-8080-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 11 ms
+-

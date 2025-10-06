@@ -120,7 +120,8 @@ struct ContentView: View {
                         .padding(.horizontal, 16)
                         .padding(.top, 8)
                         
-                        // Apple Sign In button
+                        // Apple Sign In button - Disabled (Requires Paid Apple Developer Program)
+                        /*
                         SignInWithAppleButton(
                             type: .signUp,
                             style: themeManager.isDarkMode ? .white : .black
@@ -146,6 +147,7 @@ struct ContentView: View {
                         }
                         .padding(.horizontal, 36)
                         .padding(.vertical, 16)
+                        */
                         
                         // Create account button
                         Button(action: {
