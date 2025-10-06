@@ -8,12 +8,20 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @EnvironmentObject var firebaseManager: FirebaseManager
+    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var sessionManager: UserSessionManager
+    @EnvironmentObject var databaseManager: DatabaseManager
     @State private var selectedTab: Int = 1 // Start with Lessons tab (index 1)
     
     var body: some View {
         TabView(selection: $selectedTab) {
             // Home Tab (Language Selection)
             LanguageSelectionView()
+                .environmentObject(firebaseManager)
+                .environmentObject(themeManager)
+                .environmentObject(sessionManager)
+                .environmentObject(databaseManager)
                 .tabItem {
                     Image(systemName: selectedTab == 0 ? "house.fill" : "house")
                     Text("Home")
@@ -22,6 +30,10 @@ struct MainTabView: View {
             
             // Lessons Tab
             LessonsView()
+                .environmentObject(firebaseManager)
+                .environmentObject(themeManager)
+                .environmentObject(sessionManager)
+                .environmentObject(databaseManager)
                 .tabItem {
                     Image(systemName: selectedTab == 1 ? "book.fill" : "book")
                     Text("Lessons")
@@ -30,6 +42,10 @@ struct MainTabView: View {
             
             // Leaderboard Tab
             LeaderboardView()
+                .environmentObject(firebaseManager)
+                .environmentObject(themeManager)
+                .environmentObject(sessionManager)
+                .environmentObject(databaseManager)
                 .tabItem {
                     Image(systemName: selectedTab == 2 ? "trophy.fill" : "trophy")
                     Text("Leaderboard")
@@ -38,6 +54,10 @@ struct MainTabView: View {
             
             // Profile Tab
             ProfileView()
+                .environmentObject(firebaseManager)
+                .environmentObject(themeManager)
+                .environmentObject(sessionManager)
+                .environmentObject(databaseManager)
                 .tabItem {
                     Image(systemName: selectedTab == 3 ? "person.fill" : "person")
                     Text("Profile")
@@ -74,4 +94,6 @@ struct MainTabView: View {
 
 #Preview {
     MainTabView()
+        .environmentObject(FirebaseManager.shared)
+        .environmentObject(ThemeManager.shared)
 }

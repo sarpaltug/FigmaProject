@@ -15,6 +15,9 @@ struct Language {
 
 struct LanguageSelectionView: View {
     @EnvironmentObject var firebaseManager: FirebaseManager
+    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var sessionManager: UserSessionManager
+    @EnvironmentObject var databaseManager: DatabaseManager
     @State private var searchText: String = ""
     @State private var selectedLanguage: Language?
     @State private var navigateToMainTab = false
@@ -66,7 +69,7 @@ struct LanguageSelectionView: View {
         GeometryReader { geometry in
             ZStack {
                 // Background
-                Color(hex: "#121417")
+                AppColors.background(for: themeManager.isDarkMode)
                     .ignoresSafeArea()
                 
                 VStack(spacing: 0) {
@@ -100,12 +103,12 @@ struct LanguageSelectionView: View {
                             HStack {
                                 Image(systemName: "magnifyingglass")
                                     .font(.system(size: 16))
-                                    .foregroundColor(Color(hex: "#9EADB8"))
+                                    .foregroundColor(AppColors.secondaryText(for: themeManager.isDarkMode))
                                     .padding(.leading, 16)
                                 
                                 TextField("Search for a language", text: $searchText)
                                     .font(.system(size: 16, weight: .regular, design: .default))
-                                    .foregroundColor(Color(hex: "#9EADB8"))
+                                    .foregroundColor(AppColors.secondaryText(for: themeManager.isDarkMode))
                                     .padding(.trailing, 16)
                                     .padding(.vertical, 8)
                             }
@@ -154,7 +157,7 @@ struct LanguageSelectionView: View {
                                 if filteredLanguages.isEmpty && !searchText.isEmpty {
                                     Text("No languages found")
                                         .font(.system(size: 16, weight: .regular, design: .default))
-                                        .foregroundColor(Color(hex: "#9EADB8"))
+                                        .foregroundColor(AppColors.secondaryText(for: themeManager.isDarkMode))
                                         .padding(.horizontal, 16)
                                         .padding(.top, 20)
                                 } else {
@@ -255,6 +258,7 @@ struct LanguageSelectionView: View {
 }
 
 struct LanguageCard: View {
+    @EnvironmentObject var themeManager: ThemeManager
     let language: Language
     let isSelected: Bool
     let onTap: () -> Void
@@ -296,6 +300,7 @@ struct LanguageCard: View {
 }
 
 struct TabBarItem: View {
+    @EnvironmentObject var themeManager: ThemeManager
     let icon: String
     let title: String
     let isSelected: Bool
@@ -304,12 +309,12 @@ struct TabBarItem: View {
         VStack(spacing: 4) {
             Image(systemName: icon)
                 .font(.system(size: 16, weight: .medium))
-                .foregroundColor(isSelected ? .white : Color(hex: "#9EADB8"))
+                .foregroundColor(isSelected ? .white : AppColors.secondaryText(for: themeManager.isDarkMode))
                 .frame(height: 32)
             
             Text(title)
                 .font(.system(size: 12, weight: .medium, design: .default))
-                .foregroundColor(isSelected ? .white : Color(hex: "#9EADB8"))
+                .foregroundColor(isSelected ? .white : AppColors.secondaryText(for: themeManager.isDarkMode))
         }
         .frame(maxWidth: .infinity)
         .background(

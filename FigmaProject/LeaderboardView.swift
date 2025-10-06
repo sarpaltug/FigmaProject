@@ -16,7 +16,14 @@ struct LeaderboardUser {
 }
 
 struct LeaderboardView: View {
-    let leaderboardUsers = [
+    @EnvironmentObject var firebaseManager: FirebaseManager
+    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var sessionManager: UserSessionManager
+    @EnvironmentObject var databaseManager: DatabaseManager
+    @State private var leaderboardUsers: [UserProfileModel] = []
+    @State private var isLoading = true
+    
+    let staticLeaderboardUsers = [
         LeaderboardUser(name: "You", xp: 1200, rank: 1, avatarImage: "person.circle.fill"),
         LeaderboardUser(name: "Liam", xp: 1100, rank: 2, avatarImage: "person.circle.fill"),
         LeaderboardUser(name: "Olivia", xp: 1000, rank: 3, avatarImage: "person.circle.fill"),
@@ -64,8 +71,14 @@ struct LeaderboardView: View {
                     // Leaderboard list
                     ScrollView {
                         LazyVStack(spacing: 12) {
-                            ForEach(leaderboardUsers, id: \.id) { user in
-                                LeaderboardRow(user: user)
+                            if isLoading {
+                                ForEach(staticLeaderboardUsers, id: \.id) { user in
+                                    LeaderboardRow(user: user)
+                                }
+                            } else {
+                                ForEach(Array(leaderboardUsers.enumerated()), id: \.element.id) { index, profile in
+                                    RealLeaderboardRow(profile: profile, rank: index + 1)
+                                }
                             }
                         }
                         .padding(.horizontal, 16)
@@ -73,7 +86,67 @@ struct LeaderboardView: View {
                     }
                 }
             }
+            .onAppear {
+                loadLeaderboard()
+            }
         }
+    }
+    
+    func loadLeaderboard() {
+        Task {
+            do {
+                let profiles = try await databaseManager.getLeaderboard(limit: 50)
+                await MainActor.run {
+                    self.leaderboardUsers = profiles
+                    self.isLoading = false
+                }
+            } catch {
+                print("Error loading leaderboard: \(error)")
+                // Keep showing static data
+            }
+        }
+    }
+}
+
+struct RealLeaderboardRow: View {
+    let profile: UserProfileModel
+    let rank: Int
+    
+    var body: some View {
+        HStack(spacing: 16) {
+            // Rank
+            Text("#\(rank)")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundColor(.white)
+                .frame(width: 40, alignment: .leading)
+            
+            // Avatar
+            Image(systemName: "person.circle.fill")
+                .font(.system(size: 40))
+                .foregroundColor(.blue)
+            
+            // User info
+            VStack(alignment: .leading, spacing: 4) {
+                Text(profile.displayName)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.white)
+                
+                Text("Level \(profile.currentLevel)")
+                    .font(.system(size: 14, weight: .regular))
+                    .foregroundColor(.gray)
+            }
+            
+            Spacer()
+            
+            // XP
+            Text("\(profile.totalXP) XP")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundColor(.orange)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(Color(hex: "#1E1E1E"))
+        .cornerRadius(12)
     }
 }
 

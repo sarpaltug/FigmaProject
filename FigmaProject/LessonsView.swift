@@ -15,6 +15,10 @@ struct Lesson {
 }
 
 struct LessonsView: View {
+    @EnvironmentObject var firebaseManager: FirebaseManager
+    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var sessionManager: UserSessionManager
+    @EnvironmentObject var databaseManager: DatabaseManager
     @State private var selectedLanguage: String = UserDefaults.standard.string(forKey: "selectedLanguage") ?? "Spanish"
     @State private var lessons: [Lesson] = []
     @State private var earnedXP: Int = 20

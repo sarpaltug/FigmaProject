@@ -7,9 +7,13 @@
 
 import SwiftUI
 import CoreData
+import AuthenticationServices
 
 struct ContentView: View {
     @EnvironmentObject var firebaseManager: FirebaseManager
+    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var sessionManager: UserSessionManager
+    @EnvironmentObject var databaseManager: DatabaseManager
     @State private var name: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
@@ -17,12 +21,13 @@ struct ContentView: View {
     @State private var isLoading = false
     @State private var errorMessage = ""
     @State private var showError = false
+    @State private var rememberMe = true
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 // Background
-                Color.white
+                AppColors.background(for: themeManager.isDarkMode)
                     .ignoresSafeArea()
                 
                 // Decorative background layers at the bottom
@@ -59,7 +64,7 @@ struct ContentView: View {
                         // Sign up text
                         Text("Sign up")
                             .font(.system(size: 18, weight: .bold, design: .default))
-                            .foregroundColor(Color(hex: "#121417"))
+                            .foregroundColor(AppColors.primaryText(for: themeManager.isDarkMode))
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 16)
@@ -70,18 +75,18 @@ struct ContentView: View {
                         // Name field
                         TextField("Name", text: $name)
                             .font(.system(size: 16, weight: .regular, design: .default))
-                            .foregroundColor(Color(hex: "#637887"))
+                            .foregroundColor(AppColors.primaryText(for: themeManager.isDarkMode))
                             .padding(16)
-                            .background(Color(hex: "#F0F2F5"))
+                            .background(AppColors.secondaryBackground(for: themeManager.isDarkMode))
                             .cornerRadius(12)
                             .padding(.horizontal, 16)
                         
                         // Email field
                         TextField("Email", text: $email)
                             .font(.system(size: 16, weight: .regular, design: .default))
-                            .foregroundColor(Color(hex: "#637887"))
+                            .foregroundColor(AppColors.primaryText(for: themeManager.isDarkMode))
                             .padding(16)
-                            .background(Color(hex: "#F0F2F5"))
+                            .background(AppColors.secondaryBackground(for: themeManager.isDarkMode))
                             .cornerRadius(12)
                             .keyboardType(.emailAddress)
                             .autocapitalization(.none)
@@ -92,9 +97,55 @@ struct ContentView: View {
                             .font(.system(size: 16, weight: .regular, design: .default))
                             .foregroundColor(Color(hex: "#637887"))
                             .padding(16)
-                            .background(Color(hex: "#F0F2F5"))
+                            .background(AppColors.secondaryBackground(for: themeManager.isDarkMode))
                             .cornerRadius(12)
                             .padding(.horizontal, 16)
+                        
+                        // Remember Me checkbox
+                        HStack {
+                            Button(action: {
+                                rememberMe.toggle()
+                            }) {
+                                HStack(spacing: 8) {
+                                    Image(systemName: rememberMe ? "checkmark.square.fill" : "square")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(rememberMe ? AppColors.accent(for: themeManager.isDarkMode) : AppColors.secondaryText(for: themeManager.isDarkMode))
+                                    Text("Remember me")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(AppColors.secondaryText(for: themeManager.isDarkMode))
+                                }
+                            }
+                            Spacer()
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 8)
+                        
+                        // Apple Sign In button
+                        SignInWithAppleButton(
+                            type: .signUp,
+                            style: themeManager.isDarkMode ? .white : .black
+                        ) { result in
+                            handleAppleSignIn(result)
+                        }
+                        .frame(height: 48)
+                        .cornerRadius(24)
+                        .padding(.horizontal, 36)
+                        
+                        // Divider
+                        HStack {
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundColor(AppColors.secondaryText(for: themeManager.isDarkMode).opacity(0.3))
+                            Text("or")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(AppColors.secondaryText(for: themeManager.isDarkMode))
+                                .padding(.horizontal, 16)
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundColor(AppColors.secondaryText(for: themeManager.isDarkMode).opacity(0.3))
+                        }
+                        .padding(.horizontal, 36)
+                        .padding(.vertical, 16)
                         
                         // Create account button
                         Button(action: {
@@ -122,10 +173,14 @@ struct ContentView: View {
                         .padding(.horizontal, 16)
                         
                         // Sign in link
-                        NavigationLink(destination: SignInView().environmentObject(firebaseManager)) {
+                        NavigationLink(destination: SignInView()
+                            .environmentObject(firebaseManager)
+                            .environmentObject(themeManager)
+                            .environmentObject(sessionManager)
+                            .environmentObject(databaseManager)) {
                             Text("Already have an account? Sign In")
                                 .font(.system(size: 14, weight: .medium))
-                                .foregroundColor(Color(hex: "#2699E8"))
+                                .foregroundColor(AppColors.accent(for: themeManager.isDarkMode))
                         }
                         .padding(.top, 8)
                     }
@@ -163,7 +218,7 @@ struct ContentView: View {
         
         Task {
             do {
-                try await firebaseManager.signUp(email: email, password: password, name: name)
+                try await firebaseManager.signUp(email: email, password: password, name: name, rememberMe: rememberMe)
                 // Firebase Authentication başarılı olduğunda otomatik olarak MainTabView'a yönlendirilecek
                 await MainActor.run {
                     isLoading = false
@@ -180,11 +235,33 @@ struct ContentView: View {
     private func showErrorMessage(_ message: String) {
         errorMessage = message
         showError = true
+        isLoading = false
     }
     
-
-    
-
+    private func handleAppleSignIn(_ result: Result<ASAuthorization, Error>) {
+        isLoading = true
+        
+        Task {
+            do {
+                switch result {
+                case .success(let authorization):
+                    try await firebaseManager.signInWithApple(authorization: authorization)
+                    // Firebase Authentication başarılı olduğunda otomatik olarak MainTabView'a yönlendirilecek
+                    await MainActor.run {
+                        isLoading = false
+                    }
+                case .failure(let error):
+                    await MainActor.run {
+                        showErrorMessage("Apple Sign In failed: \(error.localizedDescription)")
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    showErrorMessage("Apple Sign In failed: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
 }
 
 

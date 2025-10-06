@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var firebaseManager: FirebaseManager
+    @EnvironmentObject var sessionManager: UserSessionManager
+    @EnvironmentObject var databaseManager: DatabaseManager
+    @State private var shouldNavigate = false
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
+        NavigationStack {
+            GeometryReader { geometry in
+                ZStack {
                 // Background
-                Color(hex: "#121417")
+                AppColors.background(for: themeManager.isDarkMode)
                     .ignoresSafeArea()
                 
                 VStack(spacing: 0) {
@@ -48,8 +54,10 @@ struct OnboardingView: View {
                         .padding(.horizontal, 40)
                         .padding(.bottom, 40)
                     
-                    // Get started button
-                    NavigationLink(destination: ContentView().navigationBarHidden(true)) {
+                    // Get started button with auto navigation
+                    Button(action: {
+                        shouldNavigate = true
+                    }) {
                         HStack {
                             Spacer()
                             Text("Get started")
@@ -67,8 +75,21 @@ struct OnboardingView: View {
                         .frame(height: 50)
                 }
             }
+            }
+            .onAppear {
+                // Otomatik olarak 2 saniye sonra navigasyon yap
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    shouldNavigate = true
+                }
+            }
+            .navigationDestination(isPresented: $shouldNavigate) {
+                ContentView()
+                    .environmentObject(firebaseManager)
+                    .environmentObject(themeManager)
+                    .environmentObject(sessionManager)
+                    .environmentObject(databaseManager)
+            }
         }
-
     }
 }
 

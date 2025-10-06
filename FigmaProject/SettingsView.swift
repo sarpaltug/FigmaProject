@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var firebaseManager: FirebaseManager
+    @EnvironmentObject var themeManager: ThemeManager
     @State private var userName: String = "User"
     @State private var showBugReport = false
     @State private var showAbout = false
@@ -56,6 +57,54 @@ struct SettingsView: View {
                     
                     // Menu Items
                     VStack(spacing: 0) {
+                        // Dark Mode Toggle
+                        HStack {
+                            Image(systemName: themeManager.isDarkMode ? "moon.fill" : "sun.max.fill")
+                                .font(.system(size: 20))
+                                .foregroundColor(.white)
+                                .frame(width: 24, height: 24)
+                            
+                            Text("Dark Mode")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.white)
+                            
+                            Spacer()
+                            
+                            // Toggle Switch
+                            Menu {
+                                ForEach(AppTheme.allCases, id: \.self) { theme in
+                                    Button(action: {
+                                        themeManager.currentTheme = theme
+                                    }) {
+                                        HStack {
+                                            Text(theme.displayName)
+                                            if themeManager.currentTheme == theme {
+                                                Image(systemName: "checkmark")
+                                            }
+                                        }
+                                    }
+                                }
+                            } label: {
+                                HStack(spacing: 4) {
+                                    Text(themeManager.currentTheme.displayName)
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(Color(hex: "#9EADB8"))
+                                    Image(systemName: "chevron.down")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(Color(hex: "#9EADB8"))
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 16)
+                        .background(Color(hex: "#1E2328"))
+                        .cornerRadius(12)
+                        
+                        // Divider
+                        Rectangle()
+                            .fill(Color(hex: "#2A2D32"))
+                            .frame(height: 1)
+                        
                         // Settings
                         SettingsMenuItem(
                             icon: "gearshape.fill",

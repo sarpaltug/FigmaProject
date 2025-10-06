@@ -6,14 +6,19 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
 struct SignInView: View {
     @EnvironmentObject var firebaseManager: FirebaseManager
+    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var sessionManager: UserSessionManager
+    @EnvironmentObject var databaseManager: DatabaseManager
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var isLoading = false
     @State private var errorMessage = ""
     @State private var showError = false
+    @State private var rememberMe = true
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -70,6 +75,49 @@ struct SignInView: View {
                                 .background(Color(hex: "#F0F2F5"))
                                 .cornerRadius(12)
                         }
+                        
+                        // Remember Me checkbox
+                        HStack {
+                            Button(action: {
+                                rememberMe.toggle()
+                            }) {
+                                HStack(spacing: 8) {
+                                    Image(systemName: rememberMe ? "checkmark.square.fill" : "square")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(rememberMe ? Color(hex: "#2699E8") : .gray)
+                                    Text("Remember me")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            Spacer()
+                        }
+                        .padding(.top, 8)
+                        
+                        // Apple Sign In button
+                        SignInWithAppleButton(
+                            type: .signIn,
+                            style: .black
+                        ) { result in
+                            handleAppleSignIn(result)
+                        }
+                        .frame(height: 48)
+                        .cornerRadius(24)
+                        
+                        // Divider
+                        HStack {
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundColor(.gray.opacity(0.3))
+                            Text("or")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.gray)
+                                .padding(.horizontal, 16)
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundColor(.gray.opacity(0.3))
+                        }
+                        .padding(.vertical, 16)
                         
                         // Sign in button
                         Button(action: {
@@ -130,7 +178,7 @@ struct SignInView: View {
         
         Task {
             do {
-                try await firebaseManager.signIn(email: email, password: password)
+                try await firebaseManager.signIn(email: email, password: password, rememberMe: rememberMe)
                 // Firebase Authentication başarılı olduğunda otomatik olarak MainTabView'a yönlendirilecek
                 await MainActor.run {
                     isLoading = false
@@ -147,6 +195,31 @@ struct SignInView: View {
     private func showErrorMessage(_ message: String) {
         errorMessage = message
         showError = true
+    }
+    
+    private func handleAppleSignIn(_ result: Result<ASAuthorization, Error>) {
+        isLoading = true
+        
+        Task {
+            do {
+                switch result {
+                case .success(let authorization):
+                    try await firebaseManager.signInWithApple(authorization: authorization)
+                    // Firebase Authentication başarılı olduğunda otomatik olarak MainTabView'a yönlendirilecek
+                    await MainActor.run {
+                        isLoading = false
+                    }
+                case .failure(let error):
+                    await MainActor.run {
+                        showErrorMessage("Apple Sign In failed: \(error.localizedDescription)")
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    showErrorMessage("Apple Sign In failed: \(error.localizedDescription)")
+                }
+            }
+        }
     }
 }
 
